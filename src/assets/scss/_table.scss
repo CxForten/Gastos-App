@@ -1,0 +1,48 @@
+.table-responsive{
+    padding: 4px 24px;
+    border-radius: 4px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.05);
+    background-color: $my-white-color;
+}
+
+table.table{
+    margin-bottom: 0;
+
+    thead tr th{
+        font-size: 0.875rem;
+        color: $my-column-title-color;
+        text-transform: uppercase;
+    }
+
+    tbody tr td{
+        font-size: 0.875rem;
+        color: $my-dark-color;
+    }
+
+    tbody tr:last-child{
+        border: transparent;
+    }
+
+    .table-head-action{
+        width: 110px;
+    }
+
+    .table-data-action > div{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+
+        a, button{
+            position: relative;
+            font-size: 1.05rem;
+            text-decoration: none;
+            color: $my-dark-color;
+            transition: 0.3s;
+
+            &:hover{
+                transform: scale(1.5);
+            }
+        }
+    }
+}

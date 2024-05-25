@@ -2,7 +2,7 @@
     <h2>Gastos</h2>
 
     <div class="d-flex align-items-center flex-wrap gap-3 gap-sm-5">
-        <p class="m-0">Total gastado: <span class="fw-bold ms-1"><i class="ri-arrow-down-s-fill text-danger"></i>{{total | currency}}</span></p>
+        <p class="m-0 total-spent-text">Total gastado: <span class="fw-bold ms-1"><i class="ri-arrow-down-s-fill text-danger"></i>{{total | currency}}</span></p>
         <a routerLink="/gastos/nuevo" class="btn btn-primary">Agregar gasto</a>
     </div>
 </div>
@@ -16,7 +16,7 @@
                 <th scope="col">Cantidad</th>
                 <th scope="col">Descripción</th>
                 <th scope="col" width="180">Fecha de gasto</th>
-                <th scope="col"></th>
+                <th scope="col" class="table-head-action"></th>
             </tr>
         </thead>
         <tbody>
@@ -27,7 +27,7 @@
                     <td>{{expense.cantidad | currency}}</td>
                     <td>{{expense.descripcion}}</td>
                     <td>{{expense.gastos_fecha | date: 'dd/MM/yyyy'}}</td>
-                    <td>
+                    <td class="table-data-action">
                         <div>
                             <a [routerLink]="['/gastos', expense.id, 'editar']"><i class="ri-edit-box-line"></i></a>
                             <button (click)="deleteExpense(expense.id)" class="btn btn-link p-0"><i class="ri-delete-bin-2-line"></i></button>
