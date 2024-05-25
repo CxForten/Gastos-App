@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Expense } from './../../models/expense.model';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ExpenseService } from 'src/app/services/expense.service';
 
 @Component({
@@ -8,23 +9,35 @@ import { ExpenseService } from 'src/app/services/expense.service';
   templateUrl: './expense-form.component.html',
   styleUrls: ['./expense-form.component.scss']
 })
-export class ExpenseFormComponent {
+export class ExpenseFormComponent implements OnInit{
   expenseForm: FormGroup = new FormGroup({
     tipo: new FormControl('',[Validators.required, Validators.maxLength(100)]),
     cantidad: new FormControl('', Validators.required),
     descripcion: new FormControl('', Validators.required),
     gastos_fecha: new FormControl('', Validators.required)
   });
+  expenseId?: number;
 
   constructor(
     private expenseService: ExpenseService,
-    private router: Router
+    private router: Router,
+    private route:ActivatedRoute
   ) { }
 
+  ngOnInit(): void {
+    this.loadDataIntoForm();
+  }
+
   saveExpense():void{
-    this.expenseService.createExpense(this.expenseForm.value).subscribe(expense => {
+    if(this.expenseId){
+      this.expenseService.updateExpense(this.expenseId, this.expenseForm.value).subscribe(expense => {
       this.router.navigateByUrl('/gastos');
     });
+    }else{
+          this.expenseService.createExpense(this.expenseForm.value).subscribe(expense => {
+          this.router.navigateByUrl('/gastos');
+        });
+      }
   }
 
   hasError(field: string): boolean {
@@ -45,6 +58,20 @@ export class ExpenseFormComponent {
       return '';
 
     return errors[0];
+  }
+
+  getFormTitle(): string {
+    return this.expenseId ? 'Editar Gasto' : 'Crear Gasto';
+  }
+
+  private loadDataIntoForm(): void {
+    this.expenseId = Number(this.route.snapshot.paramMap.get('id'));
+
+    if(this.expenseId){
+      this.expenseService.getExpense(this.expenseId).subscribe(expense => {
+        this.expenseForm.patchValue(expense)
+      });
+    }
   }
 
 }

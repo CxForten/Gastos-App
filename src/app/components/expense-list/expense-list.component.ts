@@ -19,6 +19,13 @@ export class ExpenseListComponent {
     this.loadDataInTable();
   }
 
+  deleteExpense(id: number): void {
+    this.expenseService.deleteExpense(id).subscribe(response => {
+      this.expenses = this.expenses.filter(expense => expense.id !== id);
+      this.calculateTotal();
+    });
+  }
+
   private loadDataInTable(): void{
     this.expenseService.getExpenses().subscribe(
       (expenses) => {
