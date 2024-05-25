@@ -1,0 +1,34 @@
+@import 'variables';
+
+.navbar {
+    background-color: $my-dark-color;
+
+    .navbar-brand {
+        font-weight: bold;
+        span{
+            color: $my-secondary-color;
+        }
+    }
+
+    .nav-link {
+        position: relative;
+        padding-left: 0.5rem;
+
+        &.active {
+            text-shadow: 0 0 6px rgba(51, 152, 219, 0.8);
+        }
+
+        &.active::before{
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            left: -2px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: inline-block;
+            background-color: $my-primary-color;
+            border-radius: 50%;
+        }
+    }
+}
