@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ExpenseService {
-  private readonly API_URL = 'http://127.0.0.1:8080/api'
+  private readonly API_URL = 'http://gastos-api-production.up.railway.app/api'
 
   constructor(
     private http: HttpClient
